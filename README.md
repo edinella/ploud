@@ -8,7 +8,7 @@ Collaborative playlist for collective audio
 
 ## Usage
 * Start application ```npm start```
-* Tell your friends to open ```http://[your IP]:3000``` in Firefox or Chrome and collaborate inserting their own songs
+* Tell your friends to open ```http://[your IP]:3000``` in Firefox or Chrome and collaborate including their own songs
 * Open ```http://[your IP]:3000``` in Google Chrome and click a song to play it loud
 
 ## License
