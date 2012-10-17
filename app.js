@@ -21,7 +21,10 @@ app.use(express.static(dirPublic));
 app.get('/playlist/:musica', function(req, res, next){
 	var musica = req.params.musica.split('.').shift();
 	if(musica != 'playlist')
+		{
 		ultima = musica;
+		console.log('> '+req.params.musica);
+		}
 	next();
 	});
 app.get('/ultima', function(req, res){
