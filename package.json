@@ -1,16 +1,16 @@
 {
   "name": "ploud",
   "description": "Play it loud - Collaborative playlist for collective audio",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "author": "Ezequias Dinella <ezequias.net@gmail.com>",
   "dependencies": {
     "express": "*"
   },
   "repository": "git://github.com/edinella/ploud",
   "main": "app",
-  "bin": { "express": "./bin/express" },
   "scripts": {
-    "start" : "node app"
+    "start" : "node app",
+    "install" : "mkdir -m 777 uploads;mkdir -m 777 public/playlist"
   },
   "engines": { "node": "*" }
 }
