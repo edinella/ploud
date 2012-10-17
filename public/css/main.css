@@ -1,0 +1,23 @@
+body{padding:0;margin:0;font-size:1em;}
+p{margin:0;padding:10px;}
+a{text-decoration:none;}
+
+#player{text-align:center;padding:10px;border-bottom:1px dashed #ddd;}
+
+#aeroporto{font-family:“Georgia”, serif;background:#eee;text-align:center;font-size:2em;color:#bbb;border-bottom:1px dashed #ddd;font-style:italic;}
+#aeroporto p.vazio{display:block;}
+#aeroporto p.ocupado{display:none;}
+#aeroporto.ocupado p.vazio{display:none;}
+#aeroporto.ocupado p.ocupado{display:block;}
+
+ul#playlist,
+ul#playlist li{list-style:none;margin:0;padding:0;font-family:"Open Sans",sans-serif;}
+ul#playlist li{padding:5px;border-bottom:1px dotted #eee;height:2.8ex;clear:both;display:block;}
+ul#playlist li span,
+ul#playlist li a{padding:5px;display:block;}
+ul#playlist li span.empty{color:#bbb;font-style:italic;text-align:center;}
+ul#playlist li a.nome{color:#333;float:left;}
+ul#playlist li a.nome b{padding-right:5px;color:#fff;}
+ul#playlist li a:hover.nome b{color:#eee;}
+ul#playlist li.playing a.nome b,
+ul#playlist li.playing a:hover.nome b{color:#5ae;}
