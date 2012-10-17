@@ -4,6 +4,7 @@ Collaborative playlist for collective audio
 ## Installation
 * Download
 * Create upload folder for temp files ```mkdir -m 777 ./uploads```
+* Create playlist folder for song files ```mkdir -m 777 ./public/playlist```
 * Install dependencies ```npm install```
 
 ## Usage
