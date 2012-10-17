@@ -1,4 +1,4 @@
-# Play it loud
+# ♫ Play it loud
 Collaborative playlist for collective audio
 
 ## Installation
