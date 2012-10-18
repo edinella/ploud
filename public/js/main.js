@@ -15,7 +15,7 @@ $(function(){
 
 	// carrega informações atualizadas da playlist
 	function CarregaPlaylist(){
-		$.getJSON('/playlist/playlist.json', function(pl){
+		$.getJSON('/library/library.json', function(pl){
 			playlist = pl;
 			$('ul#playlist').html(
 				playlist.length
@@ -54,14 +54,14 @@ $(function(){
 					musicaAtual = musica;
 				});
 		var audio = $('audio');
-		audio.attr('src', '').attr('src', '/playlist/'+musicaAtual.time+'.'+musicaAtual.nome.split('.').pop()).get(0).play();
+		audio.attr('src', '').attr('src', '/library/'+musicaAtual.time+'.'+musicaAtual.nome.split('.').pop()).get(0).play();
 		$('#player').slideDown();
 		$('ul#playlist li').removeClass('playing').filter('#musica_'+musicaAtual.time).addClass('playing');
 		}
 
 	// upload
 	$('#aeroporto').filedrop({
-		"url":"/playlist",
+		"url":"/library",
 		"paramname":"musica",
 		"maxfilesize":20,
 		"allowedfiletypes":['audio/webm','audio/ogg','audio/mpeg','audio/mp3'],

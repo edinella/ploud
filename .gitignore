@@ -1,4 +1,4 @@
 .DS_Store
 *.mp3
-playlist.json
+library.json
 node_modules
