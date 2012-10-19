@@ -9,6 +9,6 @@ That way, people on the same room can share their musical preferences and influe
 ```npm install -g ploud```
 
 ## Usage
-* Start application ```npm start ploud```
+* Start application ```npm start /usr/local/lib/node_modules/ploud```
 * Tell your friends to open ```http://[your IP]:3000``` in Firefox or Chrome and collaborate including their own songs
 * Open ```http://[your IP]:3000``` in Google Chrome and click a song to play it loud
