@@ -22,16 +22,24 @@ function save(library){
  * @param {string} tempName Original filename
  */
 exports.add = function addSong(tempFile, tempName){
+
+	// prepare item info
 	var name = unescape(tempName);
 	var time = new Date().getTime();
 	var ext = name.split('.').pop();
 	var newPath = config.libraryDir+'/'+time+'.'+ext;
+
+	// move temp file to library dir
 	fs.rename(tempFile, newPath, function RenamingNewSongFile(err){
+
+		// if an error happened while moving, remove temporary file
 		if(err)
 			{
 			fs.unlink(tempFile);
 			console.log('x '+name);
 			}
+
+		// if moved, update and persists library json
 		else
 			{
 			library[time] = {
