@@ -4,11 +4,11 @@ a{text-decoration:none;}
 
 #player{text-align:center;padding:10px;border-bottom:1px dashed #ddd;}
 
-#aeroporto{font-family:“Georgia”, serif;background:#eee;text-align:center;font-size:2em;color:#bbb;border-bottom:1px dashed #ddd;font-style:italic;}
-#aeroporto p.vazio{display:block;}
-#aeroporto p.ocupado{display:none;}
-#aeroporto.ocupado p.vazio{display:none;}
-#aeroporto.ocupado p.ocupado{display:block;}
+#inbox{font-family:“Georgia”, serif;background:#eee;text-align:center;font-size:2em;color:#bbb;border-bottom:1px dashed #ddd;font-style:italic;}
+#inbox p.vazio{display:block;}
+#inbox p.ocupado{display:none;}
+#inbox.ocupado p.vazio{display:none;}
+#inbox.ocupado p.ocupado{display:block;}
 
 ul#playlist,
 ul#playlist li{list-style:none;margin:0;padding:0;font-family:"Open Sans",sans-serif;}
