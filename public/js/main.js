@@ -1,7 +1,28 @@
+function size(){
+    $("#sections").css("height", $("html").height()-$("#header").height()+"px");
+	}
+
 $(function(){
 
+	// handle resize
+	$(window).resize(size);
+	size();
+
+	// sortables and droppables
+    $("ul.sortable").sortable({revert:true});
+	$("#sections").tabs();
+	$("ul.sections_nav li.droppable a").droppable({
+		tolerance:"pointer",
+		accept:"ul.sortable li",
+		drop:function(event, ui){
+			$(this).effect('highlight');//.trigger('click');
+			//var listaDestino = destinationTab.find();
+			
+			}
+		});
+
 	// handle uploads
-	$('#inbox').filedrop({
+	$('#library_inbox').filedrop({
 		"url":"/library",
 		"paramname":"musica",
 		"maxfilesize":20,
@@ -15,83 +36,8 @@ $(function(){
 			},
 		"rename":function(nome){
 			return escape(nome);
-			}
+			},
+		"error":function(err, file){}
 		});
-	
-	// config
-	var atualizandoPlaylist;
-	var intervaloDeAtualizacao = 3000;
-	var playlist = [];
-	var musicaAtual = false;
 
-	// atualiza e mantém atualizadas as informações da playlist
-	// function atualizaPlaylist(){
-	// 	clearInterval(atualizandoPlaylist);
-	// 	CarregaPlaylist();
-	// 	atualizandoPlaylist = setInterval(CarregaPlaylist, intervaloDeAtualizacao);
-	// 	}
-
-	// carrega informações atualizadas da playlist
-	// function CarregaPlaylist(){
-	// 	$.getJSON('/library/library.json', function(pl){
-	// 		playlist = pl;
-	// 		$('ul#playlist').html(
-	// 			playlist.length
-	// 				? playlist.map(function(musica){
-	// 					return '<li id="musica_'+musica.time+'"><a href="javascript:void(0);" title="Reproduzir" class="nome"><b>▸</b>'+musica.nome+'</a></li>';
-	// 					}).join('')
-	// 				: '<li><span class="empty">Não há músicas na playlist.</span></li>'
-	// 			);
-	// 		if(musicaAtual !== false)
-	// 			$('#musica_'+musicaAtual.time).addClass('playing');
-	// 		});
-	// 	}
-
-	// reproduz proxima musica
-	// function playNext(){
-	// 	for(var i=0,l=playlist.length;i<l;i++)
-	// 		if(playlist[i].time == musicaAtual.time)
-	// 			{	
-	// 			musicaAtual = playlist[
-	// 				i+1<l
-	// 					? i+1
-	// 					: 0
-	// 				];
-	// 			break;
-	// 			}
-	// 	play();
-	// 	}
-
-	// reproduz musica atual ou musica especificada
-	// function play(qual){
-	// 	if(!playlist.length)
-	// 		return;
-	// 	if(typeof qual != 'undefined')
-	// 		playlist.forEach(function(musica){
-	// 			if(musica.time == qual)
-	// 				musicaAtual = musica;
-	// 			});
-	// 	var audio = $('audio');
-	// 	audio.attr('src', '').attr('src', '/library/'+musicaAtual.time+'.'+musicaAtual.nome.split('.').pop()).get(0).play();
-	// 	$('#player').slideDown();
-	// 	$('ul#playlist li').removeClass('playing').filter('#musica_'+musicaAtual.time).addClass('playing');
-	// 	}
-
-
-	// click direto na música da playlist
-	// $('ul#playlist a.nome').live('click', function(){
-	// 	play($(this).closest('li').attr('id').replace('musica_', ''));
-	// 	});
-
-	// inicializa áudio
-	// $('audio').on({
-	// 	'ended':playNext,
-	// 	'error':function(){
-	// 		alert('Houve um erro.');
-	// 		}
-	// 	});
-
-	// dispara o carregamento da playlist
-	atualizaPlaylist();
-	//$('#player').hide();
 	});

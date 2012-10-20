@@ -1,6 +1,6 @@
 
 // access
-exports.port = 3000;
+exports.port = 3001;
 
 // dirs and files
 exports.publicDir = __dirname+'/public';

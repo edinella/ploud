@@ -1,23 +1,27 @@
-body{padding:0;margin:0;font-size:1em;}
+html{height:100%;}
+body{padding:0;margin:0;font-size:1em;font-family:"Open Sans",sans-serif;height:100%;}
 p{margin:0;padding:10px;}
-a{text-decoration:none;}
+a{text-decoration:none;color:#286dbe;}
+a:active{outline:none;}
+ul,
+li{list-style:none;padding:0;margin:0;}
 
-#player{text-align:center;padding:10px;border-bottom:1px dashed #ddd;}
+::selection{background:#c9e075;color:#7ab322;}
+::-moz-selection{background:#c9e075;color:#7ab322;}
 
-#inbox{font-family:“Georgia”, serif;background:#eee;text-align:center;font-size:2em;color:#bbb;border-bottom:1px dashed #ddd;font-style:italic;}
-#inbox p.vazio{display:block;}
-#inbox p.ocupado{display:none;}
-#inbox.ocupado p.vazio{display:none;}
-#inbox.ocupado p.ocupado{display:block;}
+#header{text-align:center;height:62px;background:#39444d;}
+#header #square{width:250px;height:100%;float:left;}
+#header #square a{color:#eee;display:block;padding:10px;}
+#header #player #player_img{background:#404d56;border:1px solid #556470;float:left;width:50px;height:50px;margin:5px 0 0 5px;}
 
-ul#playlist,
-ul#playlist li{list-style:none;margin:0;padding:0;font-family:"Open Sans",sans-serif;}
-ul#playlist li{padding:5px;border-bottom:1px dotted #eee;height:2.8ex;clear:both;display:block;}
-ul#playlist li span,
-ul#playlist li a{padding:5px;display:block;}
-ul#playlist li span.empty{color:#bbb;font-style:italic;text-align:center;}
-ul#playlist li a.nome{color:#333;float:left;}
-ul#playlist li a.nome b{padding-right:5px;color:#fff;}
-ul#playlist li a:hover.nome b{color:#eee;}
-ul#playlist li.playing a.nome b,
-ul#playlist li.playing a:hover.nome b{color:#5ae;}
+#sections{font-size:.8em;height:100%;}
+#sections ul.sections_nav{height:100%;background:#eaeef1;border-right:1px solid #b9c6cf;float:left;width:250px;}
+#sections ul.sections_nav li a{outline:none;color:#98a2a9;display:block;padding:15px;border-bottom:1px solid #e3e9ec;}
+#sections ul.sections_nav li.topic a{text-transform:uppercase;letter-spacing:1px;font-weight:bold;padding-left:10px;}
+#sections ul.sections_nav li a:hover{background:#f0f3f5;}
+
+#sections .section{overflow-y:scroll;height:100%;}
+#sections .section ul li{border-color:#e7ebee;border-style:solid;border-width:1px 0;margin:-1px 0;background:#fff;padding:15px 5px;display:block;}
+#sections .section ul li span,
+#sections .section ul li a{display:block;}
+#sections .section ul li span.empty{color:#bbb;font-style:italic;text-align:center;}
