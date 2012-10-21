@@ -93,6 +93,9 @@ $(function(){
 						+'<span class="play">▸</span>'
 						+'<span class="title">'+song.title+'</span>'
 						+'<span class="artist">'+song.artist.join(', ')+'</span>'
+						+'<span class="genre">'+song.genre.join(', ')+'</span>'
+						+'<span class="album">'+song.album+'</span>'
+						+'<span class="year">'+song.year+'</span>'
 					+'</li>';
 				}).join(''));
 		else
@@ -125,7 +128,7 @@ $(function(){
 	// setup the player
 	var audio = false;
 	function play(id){
-		$('#player').slideDown();
+		$('#player').animate({"height":playerHeight});
 		$('li.current').removeClass('current');
 		$('#song_'+id).addClass('current');
 		var song = getSong(id);
@@ -169,13 +172,16 @@ $(function(){
 	// handle resize
 	function size(){
 		var total = $("html").height();
-		var noHeader = total - $("#header").height();
-	    $("#sections").height(noHeader);
+		var header = $("#header").height();
+		var player = $("#player").height();
+		var avaliable = total - header - player;
+	    $("#sections").height(avaliable);
 	    $("#arriving").css('line-height', total+'px');
-	    $("li.empty").css('line-height', noHeader+'px');
+	    $("li.empty").css('line-height', avaliable+'px');
 	    $("#player .scrubber").width($("html").width() - 200);
 		}
 	$(window).resize(size);
-	$('#player').hide();
+	var playerHeight = $('#player').height();
+	$('#player').height(0);
 	size();
 	});

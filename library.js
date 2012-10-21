@@ -52,7 +52,7 @@ exports.add = function addSong(tempFile, tempName){
 				info.timeAdded = time;
 				info.fileName = fileName;
 				info.originalFilename = originalFilename;
-				if(typeof info.picture != 'undefined' && typeof info.picture[0].data != 'undefined')
+				if(typeof info.picture != 'undefined' && typeof info.picture[0] != 'undefined' && typeof info.picture[0].data != 'undefined')
 					{
 					var binaryData = new Buffer(info.picture[0].data, 'base64').toString('binary');
 					fs.writeFile(picturePath, binaryData, "binary", function(err){});
