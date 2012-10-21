@@ -6,13 +6,13 @@ var config = require('./config');
 // obtains persisted library object, if exists
 var library = fs.existsSync(config.libraryFile)
 	? JSON.parse(fs.readFileSync(config.libraryFile))
-	: {};
+	: [];
 
 /**
  * Persists library object
  * @param  {object} library Library object
  */
-function save(library){
+function save(){
 	fs.writeFile(config.libraryFile, JSON.stringify(library));
 	}
 
@@ -24,10 +24,10 @@ function save(library){
 exports.add = function addSong(tempFile, tempName){
 
 	// prepare item info
-	var name = unescape(tempName);
 	var time = new Date().getTime();
-	var ext = name.split('.').pop();
-	var newPath = config.libraryDir+'/'+time+'.'+ext;
+	var fileName = time+'_'+unescape(tempName);
+	var ext = fileName.split('.').pop();
+	var newPath = config.libraryDir+'/'+fileName;
 
 	// move temp file to library dir
 	fs.rename(tempFile, newPath, function RenamingNewSongFile(err){
@@ -36,18 +36,15 @@ exports.add = function addSong(tempFile, tempName){
 		if(err)
 			{
 			fs.unlink(tempFile);
-			console.log('x '+name);
+			console.log('x '+fileName);
 			}
 
 		// if moved, update and persists library json
 		else
 			{
-			library[time] = {
-				"name":name,
-				"time":time
-				};
-			save(library);
-			console.log('+ '+name);
+			library.push({"t":time, "f":fileName});
+			save();
+			console.log('+ '+fileName);
 			}
 		});
 	};

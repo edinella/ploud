@@ -3,44 +3,36 @@
 	<head>
 		<meta charset="utf-8">
 		<title>♫ Play it loud</title>
-		<!--link type="text/css" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" rel="stylesheet" /-->
 		<link type="text/css" href="css/main.css" rel="stylesheet" />
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 		<script type="text/javascript" src="js/jquery.filedrop.js"></script>
+		<script type="text/javascript" src="js/jquery.Storage.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="audiojs/audio.min.js"></script>
 	</head>
 	<body>
 		<div id="header">
 			<div id="square">
-				<a href="javascript:void(0)" title="Create playlist">Create playlist</a>
+				<!--a href="javascript:void(0)" title="Create playlist">Create playlist</a-->
 			</div>
 			<div id="player">
+				<!--div id="player_img"></div-->
 				<audio preload></audio>
-				<div id="player_img"></div>
 			</div>
 		</div>
 		<div id="sections">
-			<ul class="sections_nav">
-				<li id="library_inbox" class="topic"><a href="#library" title="Drag songs here">Library</a></li>
-				<li class="droppable"><a href="#playlist-1">Summer playlist 1</a></li>
+			<ul id="nav">
+				<li id="library_inbox" class="topic"><a href="#library" title="">Library</a></li>
+				<!--li><a href="#playlist-1">Summer playlist 1</a></li>
+				<li><a href="#playlist-2">Winter playlist</a></li>
+				<li><a href="#playlist-3">Trololololololololo playlist on the rocks!</a></li-->
 			</ul>
-			<ul class="section" id="library">
-				<ul class="sortable">
-					<li><a href="javascript:void(0)" title="">Music1</a></li>
-					<li><a href="javascript:void(0)" title="">Music2</a></li>
-					<li><a href="javascript:void(0)" title="">Music3</a></li>
-					<li><a href="javascript:void(0)" title="">Music4</a></li>
-					<li><a href="javascript:void(0)" title="">Music5</a></li>
-					<li><a href="javascript:void(0)" title="">Music6</a></li>
-				</ul>
-			</ul>
-			<div class="section" id="playlist-1">
-				<ul class="sortable">
-					<li><span class="empty">Playlist is empty.</span></li>
-				</ul>
-			</div>
+			<ul class="section" id="library"></ul>
+			<!--ul class="section" id="playlist-1"></ul>
+			<ul class="section" id="playlist-2"></ul>
+			<ul class="section" id="playlist-3"></ul-->
 		</div>
+		<div id="arriving">add to library</div>
 	</body>
 </html>
