@@ -2,3 +2,6 @@
 *.mp3
 library.json
 node_modules
+*.log
+
+*.png

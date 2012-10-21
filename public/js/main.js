@@ -88,7 +88,12 @@ $(function(){
 		var list = $('ul#'+listAlias);
 		if(listSongs.length)
 			list.html(listSongs.map(function(song){
-				return '<li id="song_'+song.t+'"><span class="play">▸</span>'+song.f+'</li>';
+				return '<li id="song_'+song.timeAdded+'">'
+						+'<span class="picture"><img src="/library/'+song.picture+'" /></span>'
+						+'<span class="play">▸</span>'
+						+'<span class="title">'+song.title+'</span>'
+						+'<span class="artist">'+song.artist.join(', ')+'</span>'
+					+'</li>';
 				}).join(''));
 		else
 			{
@@ -102,7 +107,7 @@ $(function(){
 	update();
 	function getSong(time){
 		for(var i=0,l=library.length;i<l;i++)
-			if(library[i].t == time)
+			if(library[i].timeAdded == time)
 				return library[i];
 		}
 
@@ -126,7 +131,7 @@ $(function(){
 		var song = getSong(id);
 		if(audio === false)
 			audio = a[0];
-		audio.load('/library/'+song.f);
+		audio.load('/library/'+song.fileName);
 		audio.play();
 		}
 	function playNext(){

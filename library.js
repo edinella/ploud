@@ -2,6 +2,7 @@
 // dependencies
 var fs = require('fs');
 var config = require('./config');
+var mmd = require('musicmetadata');
 
 // obtains persisted library object, if exists
 var library = fs.existsSync(config.libraryFile)
@@ -25,9 +26,12 @@ exports.add = function addSong(tempFile, tempName){
 
 	// prepare item info
 	var time = new Date().getTime();
-	var fileName = time+'_'+unescape(tempName);
-	var ext = fileName.split('.').pop();
+	var originalFilename = unescape(tempName);
+	var ext = originalFilename.split('.').pop();
+	var fileName = time+'.'+ext;
 	var newPath = config.libraryDir+'/'+fileName;
+	var pictureName = time+'.png';
+	var picturePath = config.libraryDir+'/'+pictureName;
 
 	// move temp file to library dir
 	fs.rename(tempFile, newPath, function RenamingNewSongFile(err){
@@ -36,15 +40,33 @@ exports.add = function addSong(tempFile, tempName){
 		if(err)
 			{
 			fs.unlink(tempFile);
-			console.log('x '+fileName);
+			console.log('x '+originalFilename);
 			}
 
-		// if moved, update and persists library json
+		// if moved, obtains metadata, update and persists library json
 		else
 			{
-			library.push({"t":time, "f":fileName});
-			save();
-			console.log('+ '+fileName);
+			var stream = fs.createReadStream(newPath);
+			var parser = new mmd(stream);
+			parser.on('metadata', function(info){
+				info.timeAdded = time;
+				info.fileName = fileName;
+				info.originalFilename = originalFilename;
+				if(typeof info.picture != 'undefined' && typeof info.picture[0].data != 'undefined')
+					{
+					var binaryData = new Buffer(info.picture[0].data, 'base64').toString('binary');
+					fs.writeFile(picturePath, binaryData, "binary", function(err){});
+					info.picture = pictureName;
+					}
+				library.push(info);
+				save();
+				console.log('+ '+originalFilename);
+				});
+			parser.on('done', function(err){
+				if(err)
+					throw err;
+				stream.destroy();
+				});
 			}
 		});
 	};

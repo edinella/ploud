@@ -35,9 +35,17 @@ li{list-style:none;padding:0;margin:0;}
 
 #sections .section{overflow-y:scroll;height:100%;}
 #sections ul.section li{cursor:pointer;color:#5e6d79;border-color:#e7ebee;border-style:solid;border-width:1px 0;margin:-1px 0;background:#fff;display:block;padding:14px 5px 13px 5px;}
+
+#sections ul.section li span.picture{display:block;float:right;width:43px;height:43px;overflow:hidden;margin:-13px -4px 0 0;}
+#sections ul.section li span.picture img{max-width:43px;max-height:43px;}
+#sections ul.section li span.title{}
+#sections ul.section li span.artist{font-style:italic;padding-left:10px;font-size:.7em;letter-spacing:.3ex;}
+
 #sections ul.section li span.play{color:#fff;margin:-14px 0 -13px -5px;padding:14px 10px 13px 10px;}
 #sections ul.section li.over{background:#f8fff0;color:#3a6a00;}
 #sections ul.section li.over span.play{color:#d9e999;}
 #sections ul.section li.over span.play.over{color:#3a6a00;}
 #sections ul.section li.empty{cursor:default;background:#fff;color:#eaeef1;font-size:3em;border:none;margin:0;}
 #sections ul.section li.current span.play{color:#2e79c6;}
+
+
