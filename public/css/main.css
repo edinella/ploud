@@ -19,9 +19,12 @@ li{list-style:none;padding:0;margin:0;}
 #arriving{height:100%;width:100%;position:absolute;top:0;left:0;background:#fff;color:#d3e5ed;font-size:5em;}
 
 #header{text-align:center;height:62px;background:#39444d;}
-#header #square{width:250px;height:100%;float:left;}
-#header #square a{color:#eee;display:block;padding:10px;}
 #header #player #player_img{background:#404d56;border:1px solid #556470;float:left;width:50px;height:50px;margin:5px 0 0 5px;}
+
+#header #player{padding-top:15px;width:100%;}
+#header #player .audiojs{box-shadow:none;background:none;width:100%;}
+#header #player .audiojs .play-pause,
+#header #player .audiojs .time{border-color:#505b65;}
 
 #sections{font-size:.8em;height:100%;}
 #sections ul#nav{height:100%;background:#eaeef1;border-right:1px solid #b9c6cf;float:left;width:250px;}
