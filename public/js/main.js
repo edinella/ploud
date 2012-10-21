@@ -125,6 +125,25 @@ $(function(){
 		play($(this).closest('li').attr('id').replace('song_',''));
 		});
 
+	// view switches
+	var vbts = $('ul.views button');
+	var allViewClasses = [];
+	vbts.each(function(){
+		allViewClasses.push(this.className);
+		});
+	allViewClasses = allViewClasses.join(' ');
+	vbts.click(function(){
+		var sectionId = $('ul.section:visible').removeClass(allViewClasses).addClass(this.className).attr('id');
+		$.Storage.saveItem(sectionId+'_view', this.className);
+		});
+	$('ul.section').each(function(){
+		var view = $.Storage.loadItem(this.id+'_view');
+		if(view)
+			$(this).addClass(view);
+		else
+			vbts.filter(':first').trigger('click');
+		});
+
 	// setup the player
 	var audio = false;
 	function play(id){
