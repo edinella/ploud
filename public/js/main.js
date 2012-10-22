@@ -172,6 +172,13 @@ $(function(){
 			next = current.siblings('li').first();
 		play(next.get(0).id.replace('song_', ''));
 		}
+	function playPrevious(){
+		var current = $('li.current');
+		var prev = current.prev();
+		if(!prev.length)
+			prev = current.siblings('li').last();
+		play(prev.get(0).id.replace('song_', ''));
+		}
     var a = audiojs.createAll({
 		"trackEnded":playNext
 		});
@@ -190,7 +197,8 @@ $(function(){
 			playNext();
 		
 		// left arrow
-		//else if(unicode == 37)
+		else if(unicode == 37)
+			playPrevious();
 		
 		// spacebar
 		else if(unicode == 32)
