@@ -46,11 +46,11 @@ $(function(){
 		"maxfilesize":20,
 		"allowedfiletypes":['audio/webm','audio/ogg','audio/mpeg','audio/mp3'],
 	    "uploadFinished":function(i,file,response){
-			$('#inbox').removeClass('ocupado');
+			//$('#inbox').removeClass('ocupado');
 			update();
 			},
 		"drop":function(){
-			$('#inbox').addClass('ocupado');
+			//$('#inbox').addClass('ocupado');
 			},
 		"rename":function(nome){
 			return escape(nome);
