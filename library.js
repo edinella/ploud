@@ -21,8 +21,9 @@ function save(){
  * Adds song to library
  * @param {string} tempFile Temporary filepath
  * @param {string} tempName Original filename
+ * @param {function} done Callback
  */
-exports.add = function addSong(tempFile, tempName){
+exports.add = function addSong(tempFile, tempName, done){
 
 	// prepare item info
 	var time = new Date().getTime();
@@ -68,6 +69,7 @@ exports.add = function addSong(tempFile, tempName){
 				if(err)
 					throw err;
 				stream.destroy();
+				done();
 				});
 			}
 		});

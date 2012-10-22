@@ -14,7 +14,11 @@ app.use(express.static(config.publicDir));
 app.post('/library', bp, function(req, res){
 	library.add(
 		req.files.musica.path,
-		req.files.musica.name
+		req.files.musica.name,
+		function(){
+			res.status(200);
+			res.end('OK');
+			}
 		);
 	});
 
