@@ -14,7 +14,8 @@ li{list-style:none;padding:0;margin:0;}
 ::-moz-selection{background:#c9e075;color:#7ab322;}
 
 #arriving,
-#sections ul.section li.empty{vertical-align:middle;display:block;text-align:center;font-family:georgia,garamond,serif;font-style:italic;letter-spacing:.1ex;}
+#sections ul.section.view-list li.empty,
+#sections ul.section.view-grid li.empty{vertical-align:middle;display:block;text-align:center;font-family:georgia,garamond,serif;font-style:italic;letter-spacing:.1ex;}
 
 #arriving{height:100%;width:100%;position:absolute;top:0;left:0;background:#fff;color:#d3e5ed;font-size:5em;}
 
@@ -36,30 +37,29 @@ li{list-style:none;padding:0;margin:0;}
 #sections .section{overflow-y:scroll;height:100%;}
 
 #sections ul.section li{cursor:pointer;color:#5e6d79;background:#fff;display:block;}
+#sections ul.section li.empty{cursor:default;background:#fff;color:#eaeef1;font-size:3em;border:none;margin:0;}
 #sections ul.section li span.year,
 #sections ul.section li span.genre,
 #sections ul.section li span.album,
 #sections ul.section li span.artist{display:none;}
 
-#sections ul.section.view-list li{border-color:#e7ebee;border-style:solid;border-width:1px 0;margin:-1px 0;padding:14px 5px 13px 5px;}
-#sections ul.section.view-list li span.picture{display:block;float:right;width:43px;height:43px;overflow:hidden;margin:-13px -4px 0 0;}
-#sections ul.section.view-list li span.picture img{max-width:43px;max-height:43px;}
-#sections ul.section.view-list li span.title{}
-#sections ul.section.view-list li span.artist{font-style:italic;padding-left:10px;font-size:.7em;letter-spacing:.3ex;}
-#sections ul.section.view-list li span.play{color:#fff;padding:4px 5px 2px 6px;margin-right:5px;}
-#sections ul.section.view-list li.over{background:#f8fff0;color:#3a6a00;}
-#sections ul.section.view-list li.over span.play{color:#fff;border-radius:10px;background:#d9e999;}
-#sections ul.section.view-list li.over span.play.over{color:#3a6a00;}
-#sections ul.section.view-list li.empty{cursor:default;background:#fff;color:#eaeef1;font-size:3em;border:none;margin:0;}
-#sections ul.section.view-list li.current span.play{color:#2e79c6;}
+#sections ul.section.view-list li.song{border-color:#e7ebee;border-style:solid;border-width:1px 0;margin:-1px 0;padding:14px 5px 13px 5px;}
+#sections ul.section.view-list li.song span.picture{display:block;float:right;width:43px;height:43px;overflow:hidden;margin:-13px -4px 0 0;}
+#sections ul.section.view-list li.song span.picture img{max-width:43px;max-height:43px;}
+#sections ul.section.view-list li.song span.title{}
+#sections ul.section.view-list li.song span.artist{font-style:italic;padding-left:10px;font-size:.7em;letter-spacing:.3ex;}
+#sections ul.section.view-list li.song span.play{color:#fff;padding:3px 5px 3px 6px;margin-right:5px;}
+#sections ul.section.view-list li.song.over{background:#f8fff0;color:#3a6a00;}
+#sections ul.section.view-list li.song.over span.play{color:#fff;border-radius:10px;background:#d9e999;}
+#sections ul.section.view-list li.song.over span.play.over{color:#3a6a00;}
+#sections ul.section.view-list li.song.current span.play{color:#2e79c6;}
 
-#sections ul.section.view-grid li{float:left;width:156px;height:210px;padding:20px 0 0 20px;text-align:center;overflow:hidden;background:none;}
-#sections ul.section.view-grid li span.picture{display:block;width:150px;height:150px;background:#39444d;border:3px solid #39444d;border-radius:5px;overflow:hidden;text-align:center;}
-#sections ul.section.view-grid li span.picture img{height:150px;}
-#sections ul.section.view-grid li span.play{display:none;height:150px;vertical-align:middle;line-height:150px;width:150px;margin-top:-150px;font-size:4em;text-align:center;color:#fff;text-shadow:black 0 0 0.2em;}
-#sections ul.section.view-grid li.over span.play{display:block;}
-#sections ul.section.view-grid li.current span.play{display:block;color:#d5edf8;}
-#sections ul.section.view-grid li span.title{display:block;padding:3px 0;color:#39444d;}
-#sections ul.section.view-grid li span.artist{display:block;color:#98a2a9;font-style:italic;font-size:.7em;letter-spacing:.3ex;}
-
+#sections ul.section.view-grid li.song{float:left;width:156px;height:210px;padding:20px 0 0 20px;text-align:center;overflow:hidden;background:none;}
+#sections ul.section.view-grid li.song span.picture{display:block;width:150px;height:150px;background:#39444d;border:3px solid #39444d;border-radius:5px;overflow:hidden;text-align:center;}
+#sections ul.section.view-grid li.song span.picture img{height:150px;border-radius:5px;}
+#sections ul.section.view-grid li.song span.play{display:none;height:150px;vertical-align:middle;line-height:150px;width:150px;margin-top:-150px;font-size:4em;text-align:center;color:#fff;text-shadow:black 0 0 0.2em;}
+#sections ul.section.view-grid li.song.over span.play{display:block;}
+#sections ul.section.view-grid li.song.current span.play{display:block;color:#d5edf8;}
+#sections ul.section.view-grid li.song span.title{display:block;padding:3px 0;color:#39444d;}
+#sections ul.section.view-grid li.song span.artist{display:block;color:#98a2a9;font-style:italic;font-size:.7em;letter-spacing:.3ex;}
 

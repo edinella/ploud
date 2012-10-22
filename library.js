@@ -58,6 +58,8 @@ exports.add = function addSong(tempFile, tempName){
 					fs.writeFile(picturePath, binaryData, "binary", function(err){});
 					info.picture = pictureName;
 					}
+				else
+					info.picture = '';
 				library.push(info);
 				save();
 				console.log('+ '+originalFilename);

@@ -88,8 +88,11 @@ $(function(){
 		var list = $('ul#'+listAlias);
 		if(listSongs.length)
 			list.html(listSongs.map(function(song){
-				return '<li id="song_'+song.timeAdded+'">'
-						+'<span class="picture"><img src="/library/'+song.picture+'" /></span>'
+				var picture = song.picture.length
+					? '<img src="/library/'+song.picture+'" />'
+					: '';
+				return '<li id="song_'+song.timeAdded+'" class="song">'
+						+'<span class="picture">'+picture+'</span>'
 						+'<span class="play">▸</span>'
 						+'<span class="title">'+song.title+'</span>'
 						+'<span class="artist">'+song.artist.join(', ')+'</span>'
