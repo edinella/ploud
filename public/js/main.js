@@ -91,12 +91,18 @@ $(function(){
 				var picture = song.picture.length
 					? '<img src="/library/'+song.picture+'" />'
 					: '';
+				var artist = typeof song.artist != 'undefined' && song.artist.length
+					? song.artist.join(', ')
+					: '';
+				var genre = typeof song.genre != 'undefined' && song.genre.length
+					? song.genre.join(', ')
+					: '';
 				return '<li id="song_'+song.timeAdded+'" class="song">'
 						+'<span class="picture">'+picture+'</span>'
 						+'<span class="play">▸</span>'
 						+'<span class="title">'+song.title+'</span>'
-						+'<span class="artist">'+song.artist.join(', ')+'</span>'
-						+'<span class="genre">'+song.genre.join(', ')+'</span>'
+						+'<span class="artist">'+artist+'</span>'
+						+'<span class="genre">'+genre+'</span>'
 						+'<span class="album">'+song.album+'</span>'
 						+'<span class="year">'+song.year+'</span>'
 					+'</li>';

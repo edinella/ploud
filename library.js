@@ -38,36 +38,51 @@ exports.add = function addSong(tempFile, tempName, done){
 	fs.rename(tempFile, newPath, function RenamingNewSongFile(err){
 
 		// if an error happened while moving, remove temporary file
-		if(err)
-			{
+		if(err){
 			fs.unlink(tempFile);
 			console.log('x '+originalFilename);
 			}
 
 		// if moved, obtains metadata, update and persists library json
-		else
-			{
+		else{
 			var stream = fs.createReadStream(newPath);
 			var parser = new mmd(stream);
-			parser.on('metadata', function(info){
-				info.timeAdded = time;
-				info.fileName = fileName;
-				info.originalFilename = originalFilename;
-				if(typeof info.picture != 'undefined' && typeof info.picture[0] != 'undefined' && typeof info.picture[0].data != 'undefined')
-					{
-					var binaryData = new Buffer(info.picture[0].data, 'base64').toString('binary');
+			var info = {
+				"title":originalFilename,
+				"timeAdded":time,
+				"fileName":fileName,
+				"originalFilename":originalFilename,
+				"picture":""
+				};
+			parser.on('title', function(v){
+				if(v != '')
+					info.title = v;
+				});
+			parser.on('artist', function(v){
+				info.artist = v;
+				});
+			parser.on('album', function(v){
+				info.album = v;
+				});
+			parser.on('year', function(v){
+				info.year = v;
+				});
+			parser.on('genre', function(v){
+				info.genre = v;
+				});
+			parser.on('picture', function(v){
+				if(typeof v[0] != 'undefined' && typeof v[0].data != 'undefined'){
+					var binaryData = new Buffer(v[0].data, 'base64').toString('binary');
 					fs.writeFile(picturePath, binaryData, "binary", function(err){});
 					info.picture = pictureName;
 					}
-				else
-					info.picture = '';
+				});
+			parser.on('done', function(err){
+				// if(err)
+				// 	throw err;
 				library.push(info);
 				save();
 				console.log('+ '+originalFilename);
-				});
-			parser.on('done', function(err){
-				if(err)
-					throw err;
 				stream.destroy();
 				done();
 				});
