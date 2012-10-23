@@ -156,7 +156,7 @@ $(function(){
 	// setup the player
 	var audio = false;
 	function play(id){
-		$('#player').animate({"height":playerHeight});
+		$('#player').animate({"height":playerHeight}, function(){size();});
 		$('li.current').removeClass('current');
 		$('#song_'+id).addClass('current');
 		var song = getSong(id);
