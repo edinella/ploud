@@ -160,7 +160,7 @@ $(function(){
 		$('li.current').removeClass('current');
 		$('#song_'+id).addClass('current');
 		var song = getSong(id);
-		$('title').text('▸'+song.title);
+		$('title').text('▸ '+song.title);
 		if(audio === false)
 			audio = a[0];
 		audio.load('/library/'+song.fileName);
