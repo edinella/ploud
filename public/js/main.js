@@ -142,6 +142,8 @@ $(function(){
 		});
 	allViewClasses = allViewClasses.join(' ');
 	views.click(function(){
+		views.removeClass('active');
+		$(this).addClass('active');
 		var sectionId = $('ul.section:visible').removeClass(allViewClasses).addClass(this.className).attr('id');
 		$.Storage.saveItem(sectionId+'_view', this.className);
 		});
