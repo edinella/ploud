@@ -20,6 +20,11 @@ li{list-style:none;padding:0;margin:0;}
 #arriving{height:100%;width:100%;position:absolute;top:0;left:0;background:#fff;color:#d3e5ed;font-size:5em;}
 
 #header{text-align:center;height:62px;background:#39444d;}
+
+#header ul.views{padding-top:10px;}
+#header ul.views li{display:inline;font-size:1.6em;padding:0 5px;}
+#header ul.views li a{color:#2664ad;}
+#header ul.views li a:hover{color:#286dbe;text-shadow:0px 0px 5px #2670c7;}
 /*#header #player #player_img{background:#404d56;border:1px solid #556470;float:left;width:50px;height:50px;margin:5px 0 0 5px;}*/
 
 #player{background:#39444d;width:100%;position:absolute;bottom:0;overflow:hidden;}
@@ -30,7 +35,7 @@ li{list-style:none;padding:0;margin:0;}
 #sections{font-size:.8em;}
 #sections ul#nav{height:100%;background:#eaeef1;border-right:1px solid #b9c6cf;float:left;width:250px;}
 #sections ul#nav li a{outline:none;color:#98a2a9;display:block;padding:16px 15px 14px 15px;border-bottom:1px solid #e3e9ec;}
-#sections ul#nav li.topic a{text-transform:uppercase;letter-spacing:1px;font-weight:bold;padding-left:10px;}
+#sections ul#nav li.topic a{text-transform:uppercase;letter-spacing:1px;font-weight:bold;padding-left:10px;text-shadow: 0px 1px 2px #fff;}
 #sections ul#nav li a:hover{background:#f0f3f5;}
 #sections ul#nav li.ui-tabs-active{background-color:#e3e9ec;}
 

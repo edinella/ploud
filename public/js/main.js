@@ -135,13 +135,13 @@ $(function(){
 		});
 
 	// view switches
-	var vbts = $('ul.views button');
+	var views = $('ul.views a');
 	var allViewClasses = [];
-	vbts.each(function(){
+	views.each(function(){
 		allViewClasses.push(this.className);
 		});
 	allViewClasses = allViewClasses.join(' ');
-	vbts.click(function(){
+	views.click(function(){
 		var sectionId = $('ul.section:visible').removeClass(allViewClasses).addClass(this.className).attr('id');
 		$.Storage.saveItem(sectionId+'_view', this.className);
 		});
@@ -150,7 +150,7 @@ $(function(){
 		if(view)
 			$(this).addClass(view);
 		else
-			vbts.filter(':first').trigger('click');
+			views.filter(':first').trigger('click');
 		});
 
 	// setup the player
