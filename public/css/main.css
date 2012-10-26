@@ -53,7 +53,8 @@ li{list-style:none;padding:0;margin:0;}
 #sections ul.section.view-list li.song span.picture{display:block;float:right;width:22px;height:22px;overflow:hidden;margin:-3px -4px -2px 0;background:#eee;}
 #sections ul.section.view-list li.song span.picture img{max-width:22px;max-height:22px;}
 #sections ul.section.view-list li.song span.title{}
-#sections ul.section.view-list li.song span.artist{font-style:italic;padding-left:10px;font-size:.7em;letter-spacing:.3ex;}
+#sections ul.section.view-list li.song span.album{display:block;font-style:italic;padding:4px 10px 0 0;font-size:.7em;letter-spacing:.3ex;float:right;}
+#sections ul.section.view-list li.song span.artist{display:inline;font-style:italic;padding-left:10px;font-size:.7em;letter-spacing:.3ex;}
 #sections ul.section.view-list li.song span.play{color:#fff;padding:1px 5px 1px 5px;margin-right:5px;}
 #sections ul.section.view-list li.song.over{background:#f8fff0;color:#3a6a00;}
 #sections ul.section.view-list li.song.over span.play{color:#fff;border-radius:10px;background:#d9e999;}
