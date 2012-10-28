@@ -1,7 +1,7 @@
 {
   "name": "ploud",
   "description": "Play it loud - Collaborative playlist for collective audio",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "author": "Ezequias Dinella <ezequias.net@gmail.com>",
   "dependencies": {
     "express": "*",
