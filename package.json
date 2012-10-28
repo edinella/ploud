@@ -9,7 +9,9 @@
   },
   "repository": "git://github.com/edinella/ploud",
   "scripts": {
-    "install" : "mkdir -pm 777 uploads;mkdir -pm 777 public/library"
+    "install" : "mkdir -pm 777 uploads;mkdir -pm 777 public/library",
+    "preupdate" : "mv public/library/ /tmp/ploud/ && mv config.js /tmp/ploud/",
+    "postupdate" : "mv /tmp/ploud/config.js config.js && mv /tmp/ploud/ public/library/"
   },
   "engines": { "node": "*" }
 }
