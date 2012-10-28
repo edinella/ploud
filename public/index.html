@@ -4,18 +4,37 @@
 		<meta charset="utf-8">
 		<title>♫ Play it loud</title>
 		<link type="text/css" href="css/main.css" rel="stylesheet" />
-		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+		<link type="text/css" href="audiojs/audio.css" rel="stylesheet" />
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 		<script type="text/javascript" src="js/jquery.filedrop.js"></script>
+		<script type="text/javascript" src="js/jquery.Storage.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="audiojs/audio.js"></script>
 	</head>
 	<body>
+		<div id="header">
+			<ul class="views">
+				<li><a href="#view-list" class="view-list" title="View as list">☰</a></li>
+				<li><a href="#view-grid" class="view-grid" title="View as grid">⬜</a></li>
+			</ul>
+		</div>
+		<div id="sections">
+			<ul id="nav">
+				<li id="library_inbox" class="topic"><a href="#library" title="">Library</a></li>
+				<!--li><a href="#playlist-1">Summer playlist 1</a></li>
+				<li><a href="#playlist-2">Winter playlist</a></li>
+				<li><a href="#playlist-3">Trololololololololo playlist on the rocks!</a></li-->
+			</ul>
+			<ul class="section" id="library"></ul>
+			<!--ul class="section" id="playlist-1"></ul>
+			<ul class="section" id="playlist-2"></ul>
+			<ul class="section" id="playlist-3"></ul-->
+		</div>
 		<div id="player">
-			<audio preload="auto" controls="controls"></audio>
+			<!--div id="player_img"></div-->
+			<audio preload></audio>
 		</div>
-		<div id="aeroporto">
-			<p class="vazio">Arraste músicas .mp3 aqui</p>
-			<p class="ocupado">Por favor aguarde a transferência de músicas</p>
-		</div>
-		<ul id="playlist"><li><span class="empty">Não há músicas na playlist.</span></li></ul>
+		<div id="arriving">add to library</div>
 	</body>
 </html>

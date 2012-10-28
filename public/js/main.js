@@ -1,96 +1,226 @@
 $(function(){
-	
-	// config
-	var atualizandoPlaylist;
-	var intervaloDeAtualizacao = 3000;
-	var playlist = [];
-	var musicaAtual = false;
 
-	// atualiza e mantém atualizadas as informações da playlist
-	function atualizaPlaylist(){
-		clearInterval(atualizandoPlaylist);
-		CarregaPlaylist();
-		atualizandoPlaylist = setInterval(CarregaPlaylist, intervaloDeAtualizacao);
-		}
-
-	// carrega informações atualizadas da playlist
-	function CarregaPlaylist(){
-		$.getJSON('/playlist/playlist.json', function(pl){
-			playlist = pl;
-			$('ul#playlist').html(
-				playlist.length
-					? playlist.map(function(musica){
-						return '<li id="musica_'+musica.time+'"><a href="javascript:void(0);" title="Reproduzir" class="nome"><b>▸</b>'+musica.nome+'</a></li>';
-						}).join('')
-					: '<li><span class="empty">Não há músicas na playlist.</span></li>'
-				);
-			if(musicaAtual !== false)
-				$('#musica_'+musicaAtual.time).addClass('playing');
-			});
-		}
-
-	// reproduz proxima musica
-	function playNext(){
-		for(var i=0,l=playlist.length;i<l;i++)
-			if(playlist[i].time == musicaAtual.time)
-				{	
-				musicaAtual = playlist[
-					i+1<l
-						? i+1
-						: 0
-					];
-				break;
+	// main navigation
+	$("#sections").tabs({
+		"show":300,
+		"activate":function(event, ui){
+			$.Storage.saveItem('navtab', ui.newPanel.attr('id'));
+			}
+		});
+	$('ul#nav')
+		.css('width', $.Storage.loadItem('navsize'))
+		.resizable({
+			"minWidth":150,
+			"maxWidth":700,
+			"handles":"e",
+			"stop":function(){
+				$.Storage.saveItem('navsize', $(this).width());
 				}
-		play();
-		}
+			});
+	var lastTab = $.Storage.loadItem('navtab');
+	if(lastTab)
+		$('a[href="#'+lastTab+'"]').trigger('click');
 
-	// reproduz musica atual ou musica especificada
-	function play(qual){
-		if(!playlist.length)
-			return;
-		if(typeof qual != 'undefined')
-			playlist.forEach(function(musica){
-				if(musica.time == qual)
-					musicaAtual = musica;
-				});
-		var audio = $('audio');
-		audio.attr('src', '').attr('src', '/playlist/'+musicaAtual.time+'.'+musicaAtual.nome.split('.').pop()).get(0).play();
-		$('#player').slideDown();
-		$('ul#playlist li').removeClass('playing').filter('#musica_'+musicaAtual.time).addClass('playing');
-		}
+	// sortables
+    $("ul.section").sortable({
+    	"revert":true,
+    	"items":"li:not(.empty)"
+    	});
 
-	// upload
-	$('#aeroporto').filedrop({
-		"url":"/playlist",
+    // droppables
+	// $("ul.sections_nav li.droppable a").droppable({
+	// 	"tolerance":"pointer",
+	// 	"accept":"ul.sortable li",
+	// 	"drop":function(event, ui){
+	// 		$(this).effect('highlight');//.trigger('click');
+	// 		//var listaDestino = destinationTab.find();
+			
+	// 		}
+	// 	});
+
+	// handle uploads
+	$('#arriving').hide();
+	$(document).filedrop({
+		"url":"/library",
 		"paramname":"musica",
 		"maxfilesize":20,
 		"allowedfiletypes":['audio/webm','audio/ogg','audio/mpeg','audio/mp3'],
 	    "uploadFinished":function(i,file,response){
-			$('#aeroporto').removeClass('ocupado');
-			atualizaPlaylist();
+			//$('#inbox').removeClass('ocupado');
+			update();
 			},
 		"drop":function(){
-			$('#aeroporto').addClass('ocupado');
+			//$('#inbox').addClass('ocupado');
 			},
 		"rename":function(nome){
 			return escape(nome);
+			},
+		"docOver":function(){
+			$('#arriving').fadeIn();
+			},
+		"docLeave":function(){
+			$('#arriving').fadeOut();
+			},
+		"error":function(err, file){}
+		});
+
+	// loads library
+	var updating;
+	var library = [];
+	var lastLibEtag = '';
+	function update(){
+		clearInterval(updating);
+		loadsLibrary();
+		updating = setInterval(loadsLibrary, 3000);
+		}
+	function loadsLibrary(){
+		var jqXHR = $.getJSON('/library/library.json', function(data){
+			var libEtag = jqXHR.getResponseHeader('Etag');
+			if(libEtag != lastLibEtag)
+				{
+				library = data;
+				updateList('library', library);
+				}
+	        lastLibEtag = libEtag;
+			});
+		}
+	function updateList(listAlias, listSongs){
+		var list = $('ul#'+listAlias);
+		if(listSongs.length)
+			list.html(listSongs.map(function(song){
+				var picture = song.picture.length
+					? '<img src="/library/'+song.picture+'" />'
+					: '';
+				var artist = typeof song.artist != 'undefined' && song.artist.length
+					? song.artist.join(', ')
+					: '';
+				var genre = typeof song.genre != 'undefined' && song.genre.length
+					? song.genre.join(', ')
+					: '';
+				return '<li id="song_'+song.timeAdded+'" class="song">'
+						+'<span class="picture">'+picture+'</span>'
+						+'<span class="play">▸</span>'
+						+'<span class="title">'+song.title+'</span>'
+						+'<span class="artist">'+artist+'</span>'
+						+'<span class="genre">'+genre+'</span>'
+						+'<span class="album">'+song.album+'</span>'
+						+'<span class="year">'+song.year+'</span>'
+					+'</li>';
+				}).join(''));
+		else
+			{
+			list.html('<li class="empty">add songs here</li>');
+			size();
 			}
+		}
+	$('ul.section').each(function(){
+		updateList(this.id, []);
+		});
+	update();
+	function getSong(time){
+		for(var i=0,l=library.length;i<l;i++)
+			if(library[i].timeAdded == time)
+				return library[i];
+		}
+
+	// lists events
+	$('ul.section li, ul.section span.play').live('mouseenter', function(){
+		$(this).addClass('over');
+		});
+	$('ul.section li, ul.section span.play').live('mouseleave', function(){
+		$(this).removeClass('over');
+		});
+	$('ul.section span.play').live('click', function(){
+		play($(this).closest('li').attr('id').replace('song_',''));
 		});
 
-	// click direto na música da playlist
-	$('ul#playlist a.nome').live('click', function(){
-		play($(this).closest('li').attr('id').replace('musica_', ''));
+	// view switches
+	var views = $('ul.views a');
+	var allViewClasses = [];
+	views.each(function(){
+		allViewClasses.push(this.className);
+		});
+	allViewClasses = allViewClasses.join(' ');
+	views.click(function(){
+		views.removeClass('active');
+		$(this).addClass('active');
+		var sectionId = $('ul.section:visible').removeClass(allViewClasses).addClass(this.className).attr('id');
+		$.Storage.saveItem(sectionId+'_view', this.className);
+		});
+	$('ul.section').each(function(){
+		var view = $.Storage.loadItem(this.id+'_view');
+		if(view)
+			$(this).addClass(view);
+		else
+			views.filter(':first').trigger('click');
 		});
 
-	// inicializa áudio
-	$('audio').on({
-		'ended':playNext,
-		'error':function(){
-			alert('Houve um erro.');
-			}
+	// setup the player
+	var audio = false;
+	function play(id){
+		$('#player').animate({"height":playerHeight}, function(){size();});
+		$('li.current').removeClass('current');
+		$('#song_'+id).addClass('current');
+		var song = getSong(id);
+		$('title').text('▸ '+song.title);
+		if(audio === false)
+			audio = a[0];
+		audio.load('/library/'+song.fileName);
+		audio.play();
+		}
+	function playNext(){
+		var current = $('li.current');
+		var next = current.next();
+		if(!next.length)
+			next = current.siblings('li').first();
+		play(next.get(0).id.replace('song_', ''));
+		}
+	function playPrevious(){
+		var current = $('li.current');
+		var prev = current.prev();
+		if(!prev.length)
+			prev = current.siblings('li').last();
+		play(prev.get(0).id.replace('song_', ''));
+		}
+    var a = audiojs.createAll({
+		"trackEnded":playNext
 		});
 
-	// dispara o carregamento da playlist
-	atualizaPlaylist();
-	$('#player').hide();
+    // key bindings
+	$(document).keydown(function(e){
+		if(audio === false)
+			return;
+
+		var unicode = e.charCode
+			? e.charCode
+			: e.keyCode;
+
+		// right arrow
+		if(unicode == 39)
+			playNext();
+		
+		// left arrow
+		else if(unicode == 37)
+			playPrevious();
+		
+		// spacebar
+		else if(unicode == 32)
+			audio.playPause();
+		});
+
+	// handle resize
+	function size(){
+		var total = $("html").height();
+		var header = $("#header").height();
+		var player = $("#player").height();
+		var avaliable = total - header - player;
+	    $("#sections").height(avaliable);
+	    $("#arriving").css('line-height', total+'px');
+	    $("li.empty").css('line-height', avaliable+'px');
+	    $("#player .scrubber").width($("html").width() - 200);
+		}
+	$(window).resize(size);
+	var playerHeight = $('#player').height();
+	$('#player').height(0);
+	size();
 	});
