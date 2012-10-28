@@ -1,7 +1,7 @@
 .DS_Store
 *.mp3
-library.json
-node_modules
 *.log
 *.png
+library.json
+node_modules
 uploads/*
