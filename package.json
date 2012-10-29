@@ -3,11 +3,17 @@
   "description": "Play it loud - Collaborative playlist for collective audio",
   "version": "0.1.0",
   "author": "Ezequias Dinella <ezequias.net@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/edinella/ploud/issues"
+    },
   "dependencies": {
     "express": "*",
     "musicmetadata": "*"
   },
-  "repository": "git://github.com/edinella/ploud",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/edinella/ploud"
+    },
   "scripts": {
     "install" : "mkdir -pm 777 uploads;mkdir -pm 777 public/library",
     "preupdate" : "mv public/library/ /tmp/ploud/ && mv config.js /tmp/ploud/",

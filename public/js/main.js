@@ -24,19 +24,22 @@ $(function(){
 	// sortables
     $("ul.section").sortable({
     	"revert":true,
+    	"opacity":0.8,
     	"items":"li:not(.empty)"
     	});
 
     // droppables
-	// $("ul.sections_nav li.droppable a").droppable({
-	// 	"tolerance":"pointer",
-	// 	"accept":"ul.sortable li",
-	// 	"drop":function(event, ui){
-	// 		$(this).effect('highlight');//.trigger('click');
-	// 		//var listaDestino = destinationTab.find();
+	$("ul#nav li.droppable a").droppable({
+		"tolerance":"pointer",
+		"accept":"#library li",
+		"drop":function(event, ui){
+			console.log('x');
+			event.stopPropagation();
+			$(this).effect('highlight');//.trigger('click');
+			//var listaDestino = destinationTab.find();
 			
-	// 		}
-	// 	});
+			}
+		});
 
 	// handle uploads
 	$('#arriving').hide();

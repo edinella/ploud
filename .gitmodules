@@ -1,0 +1,3 @@
+[submodule "public/filedrop"]
+	path = public/filedrop
+	url = git://github.com/edinella/jquery-filedrop.git
