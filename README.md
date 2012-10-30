@@ -6,9 +6,13 @@ Ploud is designed to be a simple audio playlist, acessible on a local network, m
 That way, people on the same room can share their musical preferences and influence the resultant soundtrack that is playing loud.
 
 ## Installation
-```npm install -g ploud```
+```npm install ploud -g```
 
 ## Usage
-* Start application ```npm start ploud```
+* Start application ```npm start ploud -g```
 * Tell your friends to open ```http://[your IP]:3000``` in Firefox or Chrome and collaborate including their own songs
-* Open ```http://[your IP]:3000``` in Google Chrome and click a song to play it loud
+* Open ```http://[your IP]:3000``` and choose a song to play it loud
+
+## Server customization
+* Server port: ```npm config set ploud:port 3001```
+* Library path: ```npm config set ploud:librarypath "./new/path"```

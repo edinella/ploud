@@ -5,19 +5,23 @@
   "author": "Ezequias Dinella <ezequias.net@gmail.com>",
   "bugs": {
     "url": "https://github.com/edinella/ploud/issues"
-    },
-  "dependencies": {
-    "express": "*",
-    "musicmetadata": "*"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/edinella/ploud"
-    },
+  },
+  "dependencies": {
+    "express": "*",
+    "musicmetadata": "*"
+  },
   "scripts": {
     "install" : "mkdir -pm 777 uploads;mkdir -pm 777 public/library",
     "preupdate" : "mv public/library/ /tmp/ploud/ && mv config.js /tmp/ploud/",
     "postupdate" : "mv /tmp/ploud/config.js config.js && mv /tmp/ploud/ public/library/"
+  },
+  "config": {
+    "port": 3000,
+    "librarypath" : "./public/library"
   },
   "engines": { "node": "*" }
 }

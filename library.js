@@ -1,12 +1,15 @@
 
 // dependencies
 var fs = require('fs');
-var config = require('./config');
 var mmd = require('musicmetadata');
 
+// paths
+var libraryPath = process.env.npm_package_config_librarypath;
+var libraryFile = libraryPath+'/library.json';
+
 // obtains persisted library object, if exists
-var library = fs.existsSync(config.libraryFile)
-	? JSON.parse(fs.readFileSync(config.libraryFile))
+var library = fs.existsSync(libraryFile)
+	? JSON.parse(fs.readFileSync(libraryFile))
 	: [];
 
 /**
@@ -14,7 +17,7 @@ var library = fs.existsSync(config.libraryFile)
  * @param  {object} library Library object
  */
 function save(){
-	fs.writeFile(config.libraryFile, JSON.stringify(library));
+	fs.writeFile(libraryFile, JSON.stringify(library));
 	}
 
 /**
@@ -30,9 +33,9 @@ exports.add = function addSong(tempFile, tempName, done){
 	var originalFilename = unescape(tempName);
 	var ext = originalFilename.split('.').pop();
 	var fileName = time+'.'+ext;
-	var newPath = config.libraryDir+'/'+fileName;
+	var newPath = libraryPath+'/'+fileName;
 	var pictureName = time+'.png';
-	var picturePath = config.libraryDir+'/'+pictureName;
+	var picturePath = libraryPath+'/'+pictureName;
 
 	// move temp file to library dir
 	fs.rename(tempFile, newPath, function RenamingNewSongFile(err){

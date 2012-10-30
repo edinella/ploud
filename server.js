@@ -1,14 +1,13 @@
 
 // dependencies
 var express = require('express');
-var config = require('./config');
 var library = require('./library');
 
 // app
 var app = express();
-var bp = express.bodyParser({"uploadDir":config.uploadsDir});
+var bp = express.bodyParser();
 app.use(app.router);
-app.use(express.static(config.publicDir));
+app.use(express.static(__dirname+'/public'));
 
 // adds song to library
 app.post('/library', bp, function(req, res){
@@ -23,4 +22,4 @@ app.post('/library', bp, function(req, res){
 	});
 
 // starts app
-app.listen(config.port);
+app.listen(process.env.npm_package_config_port);
