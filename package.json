@@ -1,8 +1,13 @@
 {
   "name": "ploud",
   "description": "Play it loud - Collaborative playlist for collective audio",
-  "version": "0.1.0",
+  "keywords": ["audio", "music", "song", "playlist", "collaborative", "loud", "listen"],
   "author": "Ezequias Dinella <ezequias.net@gmail.com>",
+  "version": "0.1.0",
+  "licenses": [{
+    "type": "MIT",
+    "url": "https://raw.github.com/edinella/ploud/master/LICENSE"
+  }],
   "bugs": {
     "url": "https://github.com/edinella/ploud/issues"
   },
