@@ -1,3 +1,6 @@
 [submodule "public/filedrop"]
 	path = public/filedrop
 	url = git://github.com/edinella/jquery-filedrop.git
+[submodule "public/jqueryStorage"]
+	path = public/jqueryStorage
+	url = git://github.com/tarellel/jquery.Storage.git
