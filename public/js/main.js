@@ -1,45 +1,52 @@
 $(function(){
 
 	// main navigation
-	$("#sections").tabs({
+	var elSections = $('#sections');
+	var elNav = $('ul#nav');
+	elNav.css('width', $.Storage.loadItem('navsize'));
+	elNav.resizable({
+		"minWidth":150,
+		"maxWidth":700,
+		"handles":"e",
+		"stop":function(){
+			$.Storage.saveItem('navsize', $(this).width());
+			}
+		});
+	elSections.tabs({
 		"show":300,
 		"activate":function(event, ui){
 			$.Storage.saveItem('navtab', ui.newPanel.attr('id'));
 			}
 		});
-	$('ul#nav')
-		.css('width', $.Storage.loadItem('navsize'))
-		.resizable({
-			"minWidth":150,
-			"maxWidth":700,
-			"handles":"e",
-			"stop":function(){
-				$.Storage.saveItem('navsize', $(this).width());
+	function addNav(label, id, type){
+		if(typeof type == 'undefined')
+			type = '';
+		elNav.append('<li class="'+type+'"><a href="#'+id+'" title="">'+label+'</a></li>');
+		elSections.append('<ul class="section view-list" id="'+id+'"></ul>');
+		elSections.tabs("refresh");
+	    elSections.find('ul#'+id).sortable({
+	    	"revert":true,
+	    	"opacity":0.8,
+	    	"items":"li:not(.empty)"
+	    	});
+		elNav.find('a[href="#'+id+'"]').droppable({
+			"tolerance":"pointer",
+			"accept":"#library li",
+			"drop":function(event, ui){
+				$(this).effect('highlight');//.trigger('click');
+				//var listaDestino = destinationTab.find();
 				}
 			});
+		}
+	addNav('Library', 'library', 'topic');
 	var lastTab = $.Storage.loadItem('navtab');
-	if(lastTab)
-		$('a[href="#'+lastTab+'"]').trigger('click');
-
-	// sortables
-    $("ul.section").sortable({
-    	"revert":true,
-    	"opacity":0.8,
-    	"items":"li:not(.empty)"
-    	});
-
-    // droppables
-	$("ul#nav li.droppable a").droppable({
-		"tolerance":"pointer",
-		"accept":"#library li",
-		"drop":function(event, ui){
-			console.log('x');
-			event.stopPropagation();
-			$(this).effect('highlight');//.trigger('click');
-			//var listaDestino = destinationTab.find();
-			
-			}
-		});
+	if(lastTab){
+		var a = $('a[href="#'+lastTab+'"]')
+		if(a.length)
+			a.trigger('click');
+		else
+			$('a[href="#library"]').trigger('click');
+		}
 
 	// handle uploads
 	$('#arriving').hide();
@@ -70,6 +77,7 @@ $(function(){
 	// loads library
 	var updating;
 	var library = [];
+	var playlist = [];
 	var lastLibEtag = '';
 	function update(){
 		clearInterval(updating);
@@ -134,7 +142,13 @@ $(function(){
 		$(this).removeClass('over');
 		});
 	$('ul.section span.play').live('click', function(){
-		play($(this).closest('li').attr('id').replace('song_',''));
+		var songtime = $(this).closest('li').attr('id').replace('song_','');
+		playlist.push(getSong(songtime));
+		updateList('playlist', playlist);
+		if(!$('#playlist').length){
+			addNav('Playlist', 'playlist');
+			play(songtime);
+			}
 		});
 
 	// view switches
@@ -214,9 +228,7 @@ $(function(){
 	// handle resize
 	function size(){
 		var total = $("html").height();
-		var header = $("#header").height();
-		var player = $("#player").height();
-		var avaliable = total - header - player;
+		var avaliable = total - $("#header").height() - $("#player").height();
 	    $("#sections").height(avaliable);
 	    $("#arriving").css('line-height', total+'px');
 	    $("li.empty").css('line-height', avaliable+'px');
