@@ -20,6 +20,14 @@ function save(){
 	fs.writeFile(libraryFile, JSON.stringify(library));
 	}
 
+
+/**
+ * Obtains library object
+ */
+exports.get = function get(){
+	return library;
+	}
+
 /**
  * Adds song to library
  * @param {string} tempFile Temporary filepath

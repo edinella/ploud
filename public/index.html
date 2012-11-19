@@ -1,26 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="ngPanel">
 	<head>
 		<meta charset="utf-8">
 		<title>♫ Play it loud</title>
-		<link type="text/css" href="css/main.css" rel="stylesheet" />
-		<link type="text/css" href="audiojs/audio.css" rel="stylesheet" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet" />
+		<link href="css/panel.css" rel="stylesheet" />
+		
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
-		<script type="text/javascript" src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-		<script type="text/javascript" src="filedrop/jquery.filedrop.js"></script>
+		<script type="text/javascript" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-resource.min.js"></script>
 		<script type="text/javascript" src="jqueryStorage/jquery.Storage.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="audiojs/audio.js"></script>
+
+		<script type="text/javascript" src="js/ngPanel.js"></script>
 	</head>
-	<body>
-		<div id="header">
-			<ul class="views">
-				<li><a href="#view-list" class="view-list" title="View as list">☰</a></li>
-				<li><a href="#view-grid" class="view-grid" title="View as grid">⬜</a></li>
+	<body ng-controller="PanelController">
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<a class="brand" href="javascript:void(0)" title="">♫ Ploud</a>
+					<ul class="nav">
+						<li ng-class="{'active':isActive('/library')}"><a href="#/library" title="">Library</a></li>
+						<li ng-class="{'active':isActive('/favorites')}"><a href="#/favorites" title="">Favorites</a></li>
+						<li ng-class="{'active':isActive('/playlist')}"><a href="#/playlist" title="">Playlist</a></li>
+						<li ng-show="!!selectionSize()" class="dropdown">
+							<a href="#" id="selectedsongs" role="button" class="dropdown-toggle" data-toggle="dropdown">
+								<span class="badge badge-info">{{selectionSize()}}</span>
+								<span ng-show="selectionSize()==1">Selected song</span>
+								<span ng-hide="selectionSize()==1">Selected songs</span>
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="selectedsongs">
+								<li><a tabindex="-1">Add to playlist</a></li>
+								<li><a tabindex="-1" ng-click="selectionAddFavorites()">Add to favorites</a></li>
+								<li class="divider"></li>
+								<li><a tabindex="-1" ng-click="selectionClear()">Clear selection</a></li>
+							</ul>
+						</li>
+					</ul>
+					<form class="navbar-search pull-left">
+						<input type="text" class="search-query" ng-model="search" placeholder="Search songs">
+					</form>
+					<div class="btn-group pull-right" data-toggle="buttons-radio">
+						<a class="btn" href="javascript:void(0);" ng-class="{'active':viewstyle=='list'}" ng-click="viewstyle='list'"><i class="icon-th-list"></i></a>
+						<a class="btn" href="javascript:void(0);" ng-class="{'active':viewstyle=='thumbnails'}" ng-click="viewstyle='thumbnails'"><i class="icon-th-large"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid" ng-switch on="viewstyle">
+			<table class="table table-hover" ng-switch-when="list">
+				<cols>
+					<col />
+					<col style="width:50px" />
+					<col />
+					<col />
+					<col style="width:100px" />
+					<col style="width:65px" />
+					<col style="width:120px" />
+				</cols>
+				<thead>
+					<tr>
+						<th ng-click="sortBy('title')">Song <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='title'"></i></th>
+						<th ng-click="sortBy('favorite')"><i class="icon-star"></i> <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='favorite'"></i></th>
+						<th ng-click="sortBy('artist')">Artist <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='artist'"></i></th>
+						<th ng-click="sortBy('album')">Album <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='album'"></i></th>
+						<th ng-click="sortBy('genre')">Genre <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='genre'"></i></th>
+						<th ng-click="sortBy('year')">Year <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='year'"></i></th>
+						<th ng-click="sortBy('timeAdded')">Added <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='timeAdded'"></i></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="song in songs | filter:filterFavorites | filter:search | orderBy:sort:reverse" ng-class="{selected:song.selected}">
+						<td ng-click="song.selected=!song.selected">
+							<span class="songinfo picture">
+								<img ng-show="!!song.picture" ng-src="library/{{song.picture}}" alt="" />
+								<img ng-show="!song.picture" src="http://placehold.it/400/e6e6e6&text=+" alt="" />
+							</span>
+							<span class="songinfo title" title="{{song.title}}">{{song.title}}</span>
+						</td>
+						<td ng-click="setFavorite(song);"><span class="songinfo favorite" title=""><i ng-show="song.favorite" class="icon-star"></i></span></td>
+						<td ng-click="song.selected=!song.selected"><span class="songinfo artist" title="{{song.artist.join(', ')}}">{{song.artist.join(', ')}}</span></td>
+						<td ng-click="song.selected=!song.selected"><span class="songinfo album" title="{{song.album}}">{{song.album}}</span></td>
+						<td ng-click="song.selected=!song.selected"><span class="songinfo genre" title="{{song.genre.join(', ')}}">{{song.genre.join(', ')}}</span></td>
+						<td ng-click="song.selected=!song.selected"><span class="songinfo year" title="{{song.year}}">{{song.year}}</span></td>
+						<td ng-click="song.selected=!song.selected"><span class="songinfo added" title="{{song.timeAdded | date:'MM/dd/yyyy hh:mm'}}">{{song.timeAdded | date:'MM/dd/yyyy hh:mm'}}</span></td>
+					</tr>
+				</tbody>
+			</table>
+			<ul class="thumbnails" ng-switch-when="thumbnails">
+				<li ng-repeat="song in songs | filter:filterFavorites | filter:search | orderBy:sort:reverse" class="span2" ng-class="{selected:song.selected}" ng-click="song.selected=!song.selected">
+					<span class="songinfo picture thumbnail">
+						<img ng-show="!!song.picture" ng-src="library/{{song.picture}}" alt="" />
+						<img ng-show="!song.picture" ng-src="http://placehold.it/400/e6e6e6&text=+" alt="" />
+					</span>
+					<span class="songinfo title" title="{{song.title}}">{{song.title}}&nbsp;</span>
+					<span class="songinfo artist" title="{{song.artist.join(', ')}}">{{song.artist.join(', ')}}&nbsp;</span>
+					<span class="songinfo album" title="{{song.album}}">{{song.album}}&nbsp;</span>
+				</li>
 			</ul>
 		</div>
-		<div id="sections"><ul id="nav"></ul></div>
-		<div id="player"><audio preload></audio></div>
-		<div id="arriving">add to library</div>
 	</body>
 </html>

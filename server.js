@@ -15,10 +15,14 @@ app.post('/library', bp, function(req, res){
 		req.files.musica.path,
 		req.files.musica.name,
 		function(){
-			res.status(200);
-			res.end('OK');
+			res.send(200, 'OK');
 			}
 		);
+	});
+
+// get library
+app.get('/library', function(req, res){
+	res.send(200, library.get());
 	});
 
 // starts app
