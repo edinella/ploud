@@ -25,28 +25,29 @@
 						<li ng-class="{'active':isActive('/library')}"><a href="#/library" title="">Library</a></li>
 						<li ng-class="{'active':isActive('/favorites')}"><a href="#/favorites" title="">Favorites</a></li>
 						<li ng-class="{'active':isActive('/playlist')}"><a href="#/playlist" title="">Playlist</a></li>
-						<li ng-show="!!selectionSize()" class="dropdown">
-							<a href="#" id="selectedsongs" role="button" class="dropdown-toggle" data-toggle="dropdown">
-								<span class="badge badge-info">{{selectionSize()}}</span>
-								<span ng-show="selectionSize()==1">Selected song</span>
-								<span ng-hide="selectionSize()==1">Selected songs</span>
-								<b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="selectedsongs">
-								<li><a tabindex="-1">Add to playlist</a></li>
-								<li><a tabindex="-1" ng-click="selectionAddFavorites()">Add to favorites</a></li>
-								<li class="divider"></li>
-								<li><a tabindex="-1" ng-click="selectionClear()">Clear selection</a></li>
-							</ul>
-						</li>
 					</ul>
 					<form class="navbar-search pull-left">
 						<input type="text" class="search-query" ng-model="search" placeholder="Search songs">
 					</form>
-					<div class="btn-group pull-right" data-toggle="buttons-radio">
-						<a class="btn" href="javascript:void(0);" ng-class="{'active':viewstyle=='list'}" ng-click="viewstyle='list'"><i class="icon-th-list"></i></a>
-						<a class="btn" href="javascript:void(0);" ng-class="{'active':viewstyle=='thumbnails'}" ng-click="viewstyle='thumbnails'"><i class="icon-th-large"></i></a>
-					</div>
+					<ul class="nav pull-right">
+						<li ng-show="!!selectionSize()">
+							<div class="btn-group">
+								<a class="btn disabled">
+									<ng-pluralize count="selectionSize()" when="selectedSongForms"></ng-pluralize>
+								</a>
+								<button class="btn" title="Add to playlist"><i class="icon-play"></i></button>
+								<button class="btn" title="Add to Favorites" ng-click="selectionAddFavorites()"><i class="icon-star"></i></button>
+								<button class="btn" title="Clear selection" ng-click="selectionClear()"><i class="icon-ban-circle"></i></button>
+							</div>
+						</li>
+						<li class="divider-vertical" ng-show="!!selectionSize()"></li>
+						<li>
+							<div class="btn-group" data-toggle="buttons-radio">
+								<a class="btn" href="javascript:void(0);" ng-class="{'active':viewstyle=='list'}" ng-click="viewstyle='list'"><i class="icon-th-list"></i></a>
+								<a class="btn" href="javascript:void(0);" ng-class="{'active':viewstyle=='thumbnails'}" ng-click="viewstyle='thumbnails'"><i class="icon-th-large"></i></a>
+							</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -64,7 +65,7 @@
 				<thead>
 					<tr>
 						<th ng-click="sortBy('title')">Song <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='title'"></i></th>
-						<th ng-click="sortBy('favorite')"><i class="icon-star"></i> <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='favorite'"></i></th>
+						<th ng-click="sortBy('favorite')"><i class="icon-star-empty"></i> <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='favorite'"></i></th>
 						<th ng-click="sortBy('artist')">Artist <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='artist'"></i></th>
 						<th ng-click="sortBy('album')">Album <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='album'"></i></th>
 						<th ng-click="sortBy('genre')">Genre <i ng-class="{'icon-chevron-up':reverse,'icon-chevron-down':!reverse}" ng-show="sort=='genre'"></i></th>

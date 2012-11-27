@@ -3,7 +3,7 @@
 angular.module('ngPanel', ['ngResource']);
 
 // main controller
-function PanelController($scope, $location, $resource){
+function PanelController($scope, $location, $resource, $locale){
 
 	// nav
 	$scope.path = '';
@@ -62,4 +62,13 @@ function PanelController($scope, $location, $resource){
 		for(i in songs)
 			$scope.setFavorite(songs[i], true);
 		};
+
+	// language
+	if($locale.id == 'en-us'){
+		$scope.selectedSongForms = {
+			0: 'no songs',
+			one: '{} song',
+			other: '{} songs'
+			};
+		}
 	}
